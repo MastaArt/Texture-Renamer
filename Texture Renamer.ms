@@ -106,9 +106,9 @@ fn checkSlot b1 b2 =
 )
 
 
-fn getDependence mat =
+struct getDependence
 (	
-	outTexMaps = #()
+	outTexMaps = #(),
 	fn getSubMap m =
 	(				
 		t = #()
@@ -127,29 +127,25 @@ fn getDependence mat =
 		)
 		
 		return t
-	)
+	),
 	
 	fn getMaps mat =
-	(
-		
+	(		
 			m = #()
-			if(classOf mat == MultiSubMaterial) then m = mat else m = #(mat)
-			
+			if(classOf mat == MultiSubMaterial) then m = mat else m = #(mat)			
 			for j in m where j != undefined do
 			(
 				for o in 1 to (getNumSubTexmaps j) do
 				(
 					a = getSubTexmap j o
+					
+					appendIfUnique outTexMaps j
 					appendIfUnique outTexMaps a
-					join outTexMaps (getSubMap a)
+					join outTexMaps (getSubMap a)					
 				)
 			)								
-		
-	)
-	
-	getMaps mat
-	
-	return for i in outTexMaps where i != undefined collect i
+	),
+	fn out = for i in outTexMaps where i != undefined collect i	
 )
 
 
@@ -178,7 +174,10 @@ fn renameMaterialsAsMeshes =
 		
 		i.material.name = n
 		
-		d = getDependence i.material
+		dep = getDependence()
+		dep.getMaps i.material
+		d = dep.out()
+				
 		for i in 1 to d.count where d[i] != undefined do d[i].name = n + "_" + i as string
 	)
 )
