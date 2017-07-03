@@ -2,7 +2,7 @@
 [INFO] 
 
 NAME = Material Renamer
-VERSION = 1.0.0
+VERSION = 1.0.1
 AUTHOR = Vasily Lukyanenko
 DEV = 3DGROUND
 CUSTOMER = Andrew Andreyuk
@@ -19,6 +19,10 @@ ICON=#("PhysX_Main", 30)
 [1.0.0]
 
 * First release =
+
+[1.0.1]
+
+- Removed: Strip name funciton
 
 [ABOUT]
 
@@ -156,7 +160,7 @@ fn renameMaterialsAsMeshes =
 
 	for i in objects where i.material != undefined do 
 	(
-		n = stripName i.name
+		n = i.name
 		m = i.material
 				
 		f = findItem oldMats m
