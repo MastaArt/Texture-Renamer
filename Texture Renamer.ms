@@ -2,7 +2,7 @@
 [INFO] 
 
 NAME = Material Renamer
-VERSION = 1.0.1
+VERSION = 1.0.2
 AUTHOR = Vasily Lukyanenko
 DEV = 3DGROUND
 CUSTOMER = Andrew Andreyuk
@@ -23,6 +23,10 @@ ICON=#("PhysX_Main", 30)
 [1.0.1]
 
 - Removed: Strip name funciton
+
+[1.0.2]
+
+- Removed: Incrementation for materials
 
 [ABOUT]
 
@@ -182,7 +186,7 @@ fn renameMaterialsAsMeshes =
 		dep.getMaps i.material
 		d = dep.out()
 				
-		for i in 1 to d.count where d[i] != undefined do d[i].name = n + "_" + i as string
+		for i in 1 to d.count where d[i] != undefined do d[i].name = n --+ "_" + i as string
 	)
 )
 
